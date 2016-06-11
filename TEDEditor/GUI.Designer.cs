@@ -28,17 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.elevation_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.fLP_elevations = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel_test = new System.Windows.Forms.Panel();
-            this.lbl_entry_test = new System.Windows.Forms.Label();
-            this.nUD_test = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elevationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,51 +44,51 @@
             this.modifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayModifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayModifiedPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dismissToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.elevation_chart)).BeginInit();
-            this.fLP_elevations.SuspendLayout();
-            this.panel_test.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_test)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // elevation_chart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.elevation_chart.ChartAreas.Add(chartArea4);
+            chartArea5.Name = "ChartArea1";
+            this.elevation_chart.ChartAreas.Add(chartArea5);
             this.elevation_chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.elevation_chart.Legends.Add(legend4);
+            legend5.Name = "Legend1";
+            this.elevation_chart.Legends.Add(legend5);
             this.elevation_chart.Location = new System.Drawing.Point(230, 24);
             this.elevation_chart.Name = "elevation_chart";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series13.IsXValueIndexed = true;
-            series13.Legend = "Legend1";
-            series13.Name = "Elevation";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
-            series14.Legend = "Legend1";
-            series14.Name = "Elevation Points";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series15.Legend = "Legend1";
-            series15.Name = "Modified";
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
-            series16.Legend = "Legend1";
-            series16.Name = "Modified Points";
-            this.elevation_chart.Series.Add(series13);
-            this.elevation_chart.Series.Add(series14);
-            this.elevation_chart.Series.Add(series15);
-            this.elevation_chart.Series.Add(series16);
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series17.Legend = "Legend1";
+            series17.Name = "Elevation";
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
+            series18.Legend = "Legend1";
+            series18.Name = "Elevation Points";
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series19.Legend = "Legend1";
+            series19.Name = "Modified";
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
+            series20.Legend = "Legend1";
+            series20.Name = "Modified Points";
+            this.elevation_chart.Series.Add(series17);
+            this.elevation_chart.Series.Add(series18);
+            this.elevation_chart.Series.Add(series19);
+            this.elevation_chart.Series.Add(series20);
             this.elevation_chart.Size = new System.Drawing.Size(599, 301);
             this.elevation_chart.TabIndex = 2;
             this.elevation_chart.Text = "Elevation";
+            this.elevation_chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart_MouseDown);
+            this.elevation_chart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
+            this.elevation_chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart_MouseUp);
             // 
             // fLP_elevations
             // 
             this.fLP_elevations.AutoScroll = true;
-            this.fLP_elevations.Controls.Add(this.panel_test);
             this.fLP_elevations.Dock = System.Windows.Forms.DockStyle.Left;
             this.fLP_elevations.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLP_elevations.Location = new System.Drawing.Point(0, 24);
@@ -100,56 +97,11 @@
             this.fLP_elevations.TabIndex = 1;
             this.fLP_elevations.WrapContents = false;
             // 
-            // panel_test
-            // 
-            this.panel_test.Controls.Add(this.lbl_entry_test);
-            this.panel_test.Controls.Add(this.nUD_test);
-            this.panel_test.Location = new System.Drawing.Point(3, 3);
-            this.panel_test.Name = "panel_test";
-            this.panel_test.Size = new System.Drawing.Size(203, 24);
-            this.panel_test.TabIndex = 1;
-            // 
-            // lbl_entry_test
-            // 
-            this.lbl_entry_test.Location = new System.Drawing.Point(1, 1);
-            this.lbl_entry_test.Margin = new System.Windows.Forms.Padding(0);
-            this.lbl_entry_test.Name = "lbl_entry_test";
-            this.lbl_entry_test.Size = new System.Drawing.Size(77, 20);
-            this.lbl_entry_test.TabIndex = 2;
-            this.lbl_entry_test.Text = "Entry: 9999";
-            this.lbl_entry_test.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nUD_test
-            // 
-            this.nUD_test.DecimalPlaces = 5;
-            this.nUD_test.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nUD_test.Location = new System.Drawing.Point(81, 2);
-            this.nUD_test.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nUD_test.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
-            this.nUD_test.Name = "nUD_test";
-            this.nUD_test.Size = new System.Drawing.Size(120, 20);
-            this.nUD_test.TabIndex = 3;
-            this.nUD_test.Value = new decimal(new int[] {
-            1558741,
-            0,
-            0,
-            -2147221504});
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.dismissToolStripMenuItem,
             this.displayToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -163,8 +115,8 @@
             this.elevationToolStripMenuItem,
             this.modifiedToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.displayToolStripMenuItem.Text = "Display";
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.displayToolStripMenuItem.Text = "Display Settings";
             // 
             // elevationToolStripMenuItem
             // 
@@ -172,7 +124,7 @@
             this.displayElevationToolStripMenuItem,
             this.displayElevationPointsToolStripMenuItem});
             this.elevationToolStripMenuItem.Name = "elevationToolStripMenuItem";
-            this.elevationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.elevationToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.elevationToolStripMenuItem.Text = "Elevation";
             // 
             // displayElevationToolStripMenuItem
@@ -199,7 +151,7 @@
             this.displayModifiedToolStripMenuItem,
             this.displayModifiedPointsToolStripMenuItem});
             this.modifiedToolStripMenuItem.Name = "modifiedToolStripMenuItem";
-            this.modifiedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modifiedToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.modifiedToolStripMenuItem.Text = "Modified";
             // 
             // displayModifiedToolStripMenuItem
@@ -220,6 +172,20 @@
             this.displayModifiedPointsToolStripMenuItem.Text = "Display Modified Points";
             this.displayModifiedPointsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // dismissToolStripMenuItem
+            // 
+            this.dismissToolStripMenuItem.Name = "dismissToolStripMenuItem";
+            this.dismissToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.dismissToolStripMenuItem.Text = "Dismiss";
+            this.dismissToolStripMenuItem.Click += new System.EventHandler(this.dismissToolStripMenuItem_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,9 +198,6 @@
             this.Name = "GUI";
             this.Text = "GUI";
             ((System.ComponentModel.ISupportInitialize)(this.elevation_chart)).EndInit();
-            this.fLP_elevations.ResumeLayout(false);
-            this.panel_test.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_test)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -246,9 +209,6 @@
 
         private System.Windows.Forms.DataVisualization.Charting.Chart elevation_chart;
         private System.Windows.Forms.FlowLayoutPanel fLP_elevations;
-        private System.Windows.Forms.Panel panel_test;
-        private System.Windows.Forms.Label lbl_entry_test;
-        private System.Windows.Forms.NumericUpDown nUD_test;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem elevationToolStripMenuItem;
@@ -257,5 +217,7 @@
         private System.Windows.Forms.ToolStripMenuItem modifiedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayModifiedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayModifiedPointsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dismissToolStripMenuItem;
     }
 }

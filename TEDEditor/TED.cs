@@ -562,5 +562,18 @@ namespace TEDEditor
 
             return (vertices.ToArray());
         }
+
+        public static bool SetHeights(Vertex[] new_heights, float zScale = 1.0F)
+        {
+            if(heights.Length != new_heights.Length)
+            {
+                Console.WriteLine("Heights count isn't equal ({0}/{1})", heights.Length, new_heights.Length);
+                return (false);
+            }
+            for (int i = 0; i < heights.Length; i++)
+                heights[i].m_Height = (float)new_heights[i].Z;
+
+            return (true);
+        }
     }
 }

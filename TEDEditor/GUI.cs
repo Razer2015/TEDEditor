@@ -14,8 +14,25 @@ namespace TEDEditor
 {
     public partial class GUI : Form
     {
+        // RETURNS
+        public DialogResult Result { get; set; }
+        public Vertex[] Field1 { get; set; }
+
+        // 
+        String elevation_name = "";
+        String elevation_point_name = "";
+        String modified_name = "";
+        String modified_point_name = "";
+
         public Vertex[] orig_heights;
         public Vertex[] mod_heights;
+
+        // Used for zooming event
+        private int zoom_depth = 0;
+
+        //used for mouse over chart events
+        private bool isDraggingPoint = false;
+        private int draggedPointIndex = -1;
 
         public GUI()
         {
@@ -25,6 +42,11 @@ namespace TEDEditor
         public GUI(Vertex[] heights)
         {
             InitializeComponent();
+
+            elevation_name = this.elevation_chart.Series[0].Name;
+            elevation_point_name = this.elevation_chart.Series[1].Name;
+            modified_name = this.elevation_chart.Series[2].Name;
+            modified_point_name = this.elevation_chart.Series[3].Name;
 
             elevation_chart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             elevation_chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(chData_MouseWheel);
@@ -42,7 +64,19 @@ namespace TEDEditor
         {
             int entry = Convert.ToInt32(((NumericUpDown)sender).Name.Remove(0, 4));
             this.mod_heights[entry].Z = Convert.ToDouble(((NumericUpDown)sender).Value);
-            Visualize_mod(this.mod_heights);
+
+            this.elevation_chart.Series[2].Points[entry].YValues[0] = this.mod_heights[entry].Z;
+            this.elevation_chart.Series[3].Points[entry].YValues[0] = this.mod_heights[entry].Z;
+
+            // reset all data point attributes
+            foreach (DataPoint point in this.elevation_chart.Series[3].Points)
+            {
+                this.dataPointResetAppearance(point);
+            }
+            foreach (DataPoint point in this.elevation_chart.Series[2].Points)
+            {
+                this.dataPointResetAppearance(point);
+            }
         }
 
         public void fLP_elevation(Vertex[] heights)
@@ -90,45 +124,51 @@ namespace TEDEditor
         public void Visualize(Vertex[] heights)
         {
             // Clear
-            elevation_chart.Series["Elevation"].Points.Clear();
-            elevation_chart.Series["Elevation Points"].Points.Clear();
+            elevation_chart.Series[elevation_name].Points.Clear();
+            elevation_chart.Series[elevation_point_name].Points.Clear();
 
             // Populate
             for (int i = 0; i < heights.Length; i++)
             {
-                elevation_chart.Series["Elevation"].Points.AddXY(heights[i].Y, heights[i].Z);
-                elevation_chart.Series["Elevation Points"].Points.AddXY(heights[i].Y, heights[i].Z);
+                elevation_chart.Series[elevation_name].Points.AddXY(heights[i].Y, heights[i].Z);
+                elevation_chart.Series[elevation_point_name].Points.AddXY(heights[i].Y, heights[i].Z);
+
+                elevation_chart.Series[elevation_name].Points[i].AxisLabel = String.Format("{0} Meters", heights[i].Y.ToString("n2"));
+                elevation_chart.Series[elevation_point_name].Points[i].AxisLabel = String.Format("{0} Meters", heights[i].Y.ToString("n2"));
             }
-            elevation_chart.Series["Elevation"].ChartType = SeriesChartType.FastLine;
-            elevation_chart.Series["Elevation"].Color = Color.Blue;
+            elevation_chart.Series[elevation_name].ChartType = SeriesChartType.FastLine;
+            elevation_chart.Series[elevation_name].Color = Color.Blue;
 
-            elevation_chart.Series["Elevation Points"].ChartType = SeriesChartType.FastPoint;
-            elevation_chart.Series["Elevation Points"].Color = Color.DarkBlue;
+            elevation_chart.Series[elevation_point_name].ChartType = SeriesChartType.FastPoint;
+            elevation_chart.Series[elevation_point_name].Color = Color.DarkBlue;
 
-            elevation_chart.Series["Elevation"].Enabled = displayElevationToolStripMenuItem.Checked;
-            elevation_chart.Series["Elevation Points"].Enabled = displayElevationPointsToolStripMenuItem.Checked;
+            elevation_chart.Series[elevation_name].Enabled = displayElevationToolStripMenuItem.Checked;
+            elevation_chart.Series[elevation_point_name].Enabled = displayElevationPointsToolStripMenuItem.Checked;
         }
 
         public void Visualize_mod(Vertex[] heights)
         {
             // Clear
-            elevation_chart.Series["Modified"].Points.Clear();
-            elevation_chart.Series["Modified Points"].Points.Clear();
+            elevation_chart.Series[modified_name].Points.Clear();
+            elevation_chart.Series[modified_point_name].Points.Clear();
 
             // Populate
             for (int i = 0; i < heights.Length; i++)
             {
-                elevation_chart.Series["Modified"].Points.AddXY(heights[i].Y, heights[i].Z);
-                elevation_chart.Series["Modified Points"].Points.AddXY(heights[i].Y, heights[i].Z);
+                elevation_chart.Series[modified_name].Points.AddXY(heights[i].Y, heights[i].Z);
+                elevation_chart.Series[modified_point_name].Points.AddXY(heights[i].Y, heights[i].Z);
+
+                elevation_chart.Series[modified_name].Points[i].AxisLabel = String.Format("{0} Meters", heights[i].Y.ToString("n2"));
+                elevation_chart.Series[modified_point_name].Points[i].AxisLabel = String.Format("{0} Meters", heights[i].Y.ToString("n2"));
             }
-            elevation_chart.Series["Modified"].ChartType = SeriesChartType.FastLine;
-            elevation_chart.Series["Modified"].Color = Color.Red;
+            elevation_chart.Series[modified_name].ChartType = SeriesChartType.FastLine;
+            elevation_chart.Series[modified_name].Color = Color.Red;
 
-            elevation_chart.Series["Modified Points"].ChartType = SeriesChartType.FastPoint;
-            elevation_chart.Series["Modified Points"].Color = Color.DarkRed;
+            elevation_chart.Series[modified_point_name].ChartType = SeriesChartType.FastPoint;
+            elevation_chart.Series[modified_point_name].Color = Color.DarkRed;
 
-            elevation_chart.Series["Modified"].Enabled = displayModifiedToolStripMenuItem.Checked;
-            elevation_chart.Series["Modified Points"].Enabled = displayModifiedPointsToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_name].Enabled = displayModifiedToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_point_name].Enabled = displayModifiedPointsToolStripMenuItem.Checked;
         }
 
         private void chData_MouseWheel(object sender, MouseEventArgs e)
@@ -137,12 +177,34 @@ namespace TEDEditor
             {
                 if (e.Delta < 0)
                 {
-                    elevation_chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
-                    elevation_chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+                    zoom_depth--;
+                    if(zoom_depth < 1)
+                    {
+                        elevation_chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
+                        elevation_chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+                        zoom_depth = 0;
+                    }
+                    else
+                    {
+                        double xMin = elevation_chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+                        double xMax = elevation_chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
+                        double yMin = elevation_chart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
+                        double yMax = elevation_chart.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
+
+                        double posXStart = elevation_chart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) * 4;
+                        double posXFinish = elevation_chart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) * 4;
+                        double posYStart = elevation_chart.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin) * 4;
+                        double posYFinish = elevation_chart.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin) * 4;
+
+                        elevation_chart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                        elevation_chart.ChartAreas[0].AxisY.ScaleView.Zoom(posYStart, posYFinish);
+                    }
                 }
 
                 if (e.Delta > 0)
                 {
+                    zoom_depth++;
+
                     double xMin = elevation_chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
                     double xMax = elevation_chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
                     double yMin = elevation_chart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
@@ -165,8 +227,10 @@ namespace TEDEditor
             ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
             TSMI.Checked = !TSMI.Checked;
 
-            Visualize(this.orig_heights);
-            Visualize_mod(this.mod_heights);
+            elevation_chart.Series[elevation_name].Enabled = displayElevationToolStripMenuItem.Checked;
+            elevation_chart.Series[elevation_point_name].Enabled = displayElevationPointsToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_name].Enabled = displayModifiedToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_point_name].Enabled = displayModifiedPointsToolStripMenuItem.Checked;
         }
 
         public static T DeepCopy<T>(T obj)
@@ -179,6 +243,115 @@ namespace TEDEditor
 
                 return (T)formatter.Deserialize(stream);
             }
+        }
+
+
+        /////////////////////////////////////
+        #region chart mouse event handling
+
+        private void chart_MouseMove(object sender, MouseEventArgs e)
+        {
+            //call HitTest
+            HitTestResult result = this.elevation_chart.HitTest(e.X, e.Y);
+
+            // reset all data point attributes
+            foreach (DataPoint point in this.elevation_chart.Series[3].Points)
+            {
+                this.dataPointResetAppearance(point);
+            }
+            foreach (DataPoint point in this.elevation_chart.Series[2].Points)
+            {
+                this.dataPointResetAppearance(point);
+            }
+
+            //if mouse is over a data point
+            if (result.ChartElementType == ChartElementType.DataPoint)
+            {
+                //find mouse-over data point
+                DataPoint point = this.elevation_chart.Series[3].Points[result.PointIndex];
+
+                //change appearance of that data point 
+                this.dataPointSetMouseOverAppearance(point);
+            }
+
+            //additionally, if mouse is dragging a data point
+            if (this.isDraggingPoint)
+            {
+                //change appearance of the graph
+                this.elevation_chart.Series[2].Color = Color.LightBlue;
+                //change appearance of the graph
+                this.elevation_chart.Series[3].Color = Color.AliceBlue;
+
+                //change mouse position values to Y values
+                this.elevation_chart.Series[2].Points[this.draggedPointIndex].YValues[0] = this.elevation_chart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                //change mouse position values to Y values
+                this.elevation_chart.Series[3].Points[this.draggedPointIndex].YValues[0] = this.elevation_chart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+
+                //change numericupdown Y
+                ((NumericUpDown)fLP_elevations.Controls["panel_" + this.draggedPointIndex].Controls["nUD_" + this.draggedPointIndex]).Value = (decimal)this.elevation_chart.Series[3].Points[this.draggedPointIndex].YValues[0];
+
+                //update the values for the table to display
+                this.mod_heights[this.draggedPointIndex].Z = this.elevation_chart.Series[3].Points[this.draggedPointIndex].YValues[0];
+            }
+        }
+
+        private void chart_MouseDown(object sender, MouseEventArgs e)
+        {
+            HitTestResult result = this.elevation_chart.HitTest(e.X, e.Y);
+
+            if (result.ChartElementType == ChartElementType.DataPoint)
+            {
+                // store the index of the point being dragged
+                this.draggedPointIndex = result.PointIndex;
+                this.isDraggingPoint = true;
+
+                ((NumericUpDown)fLP_elevations.Controls["panel_" + this.draggedPointIndex].Controls["nUD_" + this.draggedPointIndex]).ValueChanged -= 
+                    new System.EventHandler(nUD_ValueChanged);
+            }
+        }
+
+        private void chart_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(draggedPointIndex != -1)
+            {
+                ((NumericUpDown)fLP_elevations.Controls["panel_" + this.draggedPointIndex].Controls["nUD_" + this.draggedPointIndex]).ValueChanged += 
+                    new System.EventHandler(nUD_ValueChanged);
+            }
+
+            this.draggedPointIndex = -1;
+            this.isDraggingPoint = false;
+
+            //set appearance of graph back to normal
+            this.elevation_chart.Series[2].Color = Color.Red;
+            this.elevation_chart.Series[3].Color = Color.DarkRed;
+        }
+
+        private void dataPointResetAppearance(DataPoint point)
+        {
+            point.MarkerColor = Color.Brown;
+            point.MarkerSize = 5;
+        }
+
+        private void dataPointSetMouseOverAppearance(DataPoint point)
+        {
+            point.MarkerColor = Color.Red;
+            point.MarkerSize = 10;
+        }
+
+        #endregion
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Result = DialogResult.OK;
+            Field1 = this.mod_heights;
+            this.Close();
+        }
+
+        private void dismissToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Result = DialogResult.Cancel;
+            Field1 = this.orig_heights;
+            this.Close();
         }
     }
 }
