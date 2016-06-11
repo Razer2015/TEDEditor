@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TEDEditor
 {
+    [Serializable]
     public class Vertex
     {
         public double X { get; set; }

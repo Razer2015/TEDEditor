@@ -522,5 +522,45 @@ namespace TEDEditor
 
             return (true);
         }
+
+        public static Vertex[] GetHeights(float zScale = 1.0F)
+        {
+            List<Vertex> vertices = new List<Vertex>();
+
+            int count = 0;
+            List<float> zValues = new List<float>();
+            for (int i = 0; i < banks.Length; i++)
+            {
+                // Write vertices
+                float base_point = ((banks[i].m_vlen / banks[i].m_divCount));
+                for (int j = 1; j < (banks[i].m_divCount + 1); j++)
+                {
+                    if (i == 0 && j == 1)
+                    {
+                        float p3 = getHeight((banks[i].m_divStart));
+                        float test = (p3 * zScale);
+
+                        zValues.Add(p3);
+
+                        //sw.WriteLine("{0};{1}", (0.0F).ToString().Replace(",", "."), (p3 * zScale).ToString("G9").Replace(",", "."));
+                        vertices.Add(new Vertex() { X = 0.0F, Y = 0.0F, Z = p3 * zScale });
+                        count++;
+                    }
+                    float point2 = (base_point * j) + banks[i].m_vpos;
+                    float point3 = getHeight((banks[i].m_divStart + j));
+                    //sw.WriteLine("{0};{1}", point2.ToString().Replace(",", "."), (point3 * zScale).ToString("G9").Replace(",", "."));
+                    vertices.Add(new Vertex() { X = 0.0F, Y = point2, Z = point3 * zScale });
+
+                    zValues.Add(point3);
+
+                    count++;
+                }
+            }
+            System.Diagnostics.Debug.WriteLine(zValues.Max().ToString("F9"));
+            System.Diagnostics.Debug.WriteLine(zValues.Min().ToString("F9"));
+            System.Diagnostics.Debug.WriteLine(((zValues.Max()) - (zValues.Min())).ToString("F9"));
+
+            return (vertices.ToArray());
+        }
     }
 }

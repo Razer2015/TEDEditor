@@ -24,6 +24,12 @@ namespace TEDEditor
                     {
                         EndianBinReader reader = new EndianBinReader(fs);
                         TED.Read(reader);
+#if DEBUG
+                        // Visualize
+                        GUI gui = new GUI(TED.GetHeights());
+                        gui.ShowDialog();
+                        return;
+#endif
                         if (args.Length >= 3)
                             TED.SaveHeights(args[2]);
                         else
