@@ -12,6 +12,14 @@ namespace TEDEditor
     {
         static void Main(string[] args)
         {
+            if(args.Length < 1)
+            {
+                PrintInfo();
+                Console.WriteLine("Press any key to exit!");
+                Console.ReadKey();
+                return;
+            }
+
             if (args[0].Equals("-read", StringComparison.CurrentCultureIgnoreCase))
             {
                 if (args.Length < 2)
