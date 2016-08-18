@@ -56,7 +56,7 @@ namespace TEDEditor
 
                     if (!TED.ReadHeights(args[2]))
                         return;
-                    if (args.Length >= 3)
+                    if (args.Length >= 4)
                         File.WriteAllBytes(args[3], TED.Write());
                     else
                         File.WriteAllBytes(Path.GetFileNameWithoutExtension(fi.FullName) + "_newHeights.ted", TED.Write());
@@ -86,6 +86,8 @@ namespace TEDEditor
                         File.WriteAllBytes(args[2], TED.Write());
                     else
                         File.WriteAllBytes(fi.FullName, TED.Write());
+
+                    gui.Dispose();
                 }
             }
         }

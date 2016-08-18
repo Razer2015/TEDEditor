@@ -45,7 +45,7 @@ namespace TEDEditor
         public static int Decoration_count;
         public static byte[] New_TED;
 
-        private static bool debugging = false;
+        //private static bool debugging = false;
 
         public static bool Read(BinaryReader reader, bool load = true)
         {
