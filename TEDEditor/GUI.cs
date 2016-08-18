@@ -933,7 +933,7 @@ namespace TEDEditor
 
                         //Point Calculation
                         double new_X_offset = this.mod_heights[entry].Y - centerPoint;
-                        double Z = GetHeightARCPoint(sagitta, radius, new_X_offset);
+                        double Z = (sagitta < 0) ? (GetHeightARCPoint(sagitta, radius, new_X_offset) * -1) : GetHeightARCPoint(sagitta, radius, new_X_offset);
                         if (index == 0)
                             heightChange = this.mod_heights[entry].Z - Z;
                         Z += heightChange;
