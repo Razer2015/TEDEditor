@@ -39,14 +39,23 @@
             this.lbl_multi_heightS = new System.Windows.Forms.Label();
             this.nUD_multi_heightS = new System.Windows.Forms.NumericUpDown();
             this.gBox_arc = new System.Windows.Forms.GroupBox();
-            this.btn_apply = new System.Windows.Forms.Button();
-            this.btn_cancel = new System.Windows.Forms.Button();
-            this.lbl_arc_heightS = new System.Windows.Forms.Label();
-            this.nUD_arc_heightS = new System.Windows.Forms.NumericUpDown();
-            this.lbl_arc_FinalPoint = new System.Windows.Forms.Label();
-            this.nUD_arc_finalPoint = new System.Windows.Forms.NumericUpDown();
             this.lbl_arc_sagitta = new System.Windows.Forms.Label();
             this.nUD_arc_sagitta = new System.Windows.Forms.NumericUpDown();
+            this.lbl_arc_FinalPoint = new System.Windows.Forms.Label();
+            this.nUD_arc_finalPoint = new System.Windows.Forms.NumericUpDown();
+            this.lbl_arc_heightS = new System.Windows.Forms.Label();
+            this.nUD_arc_heightS = new System.Windows.Forms.NumericUpDown();
+            this.btn_apply = new System.Windows.Forms.Button();
+            this.btn_cancel = new System.Windows.Forms.Button();
+            this.gBox_arcV = new System.Windows.Forms.GroupBox();
+            this.lbl_arcV_sagitta = new System.Windows.Forms.Label();
+            this.nUD_arcV_sagitta = new System.Windows.Forms.NumericUpDown();
+            this.lbl_arcV_FinalPoint = new System.Windows.Forms.Label();
+            this.nUD_arcV_finalPoint = new System.Windows.Forms.NumericUpDown();
+            this.lbl_arcV_heightS = new System.Windows.Forms.Label();
+            this.nUD_arcV_heightS = new System.Windows.Forms.NumericUpDown();
+            this.lbl_arcV_heightE = new System.Windows.Forms.Label();
+            this.nUD_arcV_heightE = new System.Windows.Forms.NumericUpDown();
             this.gBox_mode.SuspendLayout();
             this.gBox_single.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_single_heightVal)).BeginInit();
@@ -54,9 +63,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_multi_heightE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_multi_heightS)).BeginInit();
             this.gBox_arc.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_heightS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_finalPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_sagitta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_finalPoint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_heightS)).BeginInit();
+            this.gBox_arcV.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_sagitta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_finalPoint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_heightS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_heightE)).BeginInit();
             this.SuspendLayout();
             // 
             // cBox_mode
@@ -67,7 +81,7 @@
             this.cBox_mode.Items.AddRange(new object[] {
             "Single",
             "Multi",
-            "ARC"});
+            "ARC Horizontal"});
             this.cBox_mode.Location = new System.Drawing.Point(6, 19);
             this.cBox_mode.Name = "cBox_mode";
             this.cBox_mode.Size = new System.Drawing.Size(248, 21);
@@ -228,97 +242,6 @@
             this.gBox_arc.Text = "ARC Mode";
             this.gBox_arc.Visible = false;
             // 
-            // btn_apply
-            // 
-            this.btn_apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_apply.Location = new System.Drawing.Point(12, 255);
-            this.btn_apply.Name = "btn_apply";
-            this.btn_apply.Size = new System.Drawing.Size(119, 23);
-            this.btn_apply.TabIndex = 5;
-            this.btn_apply.Text = "Apply";
-            this.btn_apply.UseVisualStyleBackColor = true;
-            this.btn_apply.Click += new System.EventHandler(this.btn_apply_Click);
-            // 
-            // btn_cancel
-            // 
-            this.btn_cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancel.Location = new System.Drawing.Point(153, 255);
-            this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(119, 23);
-            this.btn_cancel.TabIndex = 6;
-            this.btn_cancel.Text = "Cancel";
-            this.btn_cancel.UseVisualStyleBackColor = true;
-            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
-            // 
-            // lbl_arc_heightS
-            // 
-            this.lbl_arc_heightS.AutoSize = true;
-            this.lbl_arc_heightS.Location = new System.Drawing.Point(6, 21);
-            this.lbl_arc_heightS.Name = "lbl_arc_heightS";
-            this.lbl_arc_heightS.Size = new System.Drawing.Size(96, 13);
-            this.lbl_arc_heightS.TabIndex = 5;
-            this.lbl_arc_heightS.Text = "Height Start Value:";
-            // 
-            // nUD_arc_heightS
-            // 
-            this.nUD_arc_heightS.DecimalPlaces = 5;
-            this.nUD_arc_heightS.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nUD_arc_heightS.Location = new System.Drawing.Point(108, 19);
-            this.nUD_arc_heightS.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nUD_arc_heightS.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
-            this.nUD_arc_heightS.Name = "nUD_arc_heightS";
-            this.nUD_arc_heightS.Size = new System.Drawing.Size(146, 20);
-            this.nUD_arc_heightS.TabIndex = 4;
-            this.nUD_arc_heightS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nUD_arc_heightS.ValueChanged += new System.EventHandler(this.nUD_arc_heightS_ValueChanged);
-            // 
-            // lbl_arc_FinalPoint
-            // 
-            this.lbl_arc_FinalPoint.AutoSize = true;
-            this.lbl_arc_FinalPoint.Enabled = false;
-            this.lbl_arc_FinalPoint.Location = new System.Drawing.Point(6, 47);
-            this.lbl_arc_FinalPoint.Name = "lbl_arc_FinalPoint";
-            this.lbl_arc_FinalPoint.Size = new System.Drawing.Size(59, 13);
-            this.lbl_arc_FinalPoint.TabIndex = 7;
-            this.lbl_arc_FinalPoint.Text = "Final Point:";
-            // 
-            // nUD_arc_finalPoint
-            // 
-            this.nUD_arc_finalPoint.Enabled = false;
-            this.nUD_arc_finalPoint.Location = new System.Drawing.Point(108, 45);
-            this.nUD_arc_finalPoint.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nUD_arc_finalPoint.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nUD_arc_finalPoint.Name = "nUD_arc_finalPoint";
-            this.nUD_arc_finalPoint.Size = new System.Drawing.Size(146, 20);
-            this.nUD_arc_finalPoint.TabIndex = 6;
-            this.nUD_arc_finalPoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nUD_arc_finalPoint.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nUD_arc_finalPoint.ValueChanged += new System.EventHandler(this.nUD_arc_finalPoint_ValueChanged);
-            // 
             // lbl_arc_sagitta
             // 
             this.lbl_arc_sagitta.AutoSize = true;
@@ -358,11 +281,259 @@
             65536});
             this.nUD_arc_sagitta.ValueChanged += new System.EventHandler(this.nUD_arc_sagitta_ValueChanged);
             // 
+            // lbl_arc_FinalPoint
+            // 
+            this.lbl_arc_FinalPoint.AutoSize = true;
+            this.lbl_arc_FinalPoint.Location = new System.Drawing.Point(6, 47);
+            this.lbl_arc_FinalPoint.Name = "lbl_arc_FinalPoint";
+            this.lbl_arc_FinalPoint.Size = new System.Drawing.Size(59, 13);
+            this.lbl_arc_FinalPoint.TabIndex = 7;
+            this.lbl_arc_FinalPoint.Text = "Final Point:";
+            // 
+            // nUD_arc_finalPoint
+            // 
+            this.nUD_arc_finalPoint.Location = new System.Drawing.Point(108, 45);
+            this.nUD_arc_finalPoint.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nUD_arc_finalPoint.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nUD_arc_finalPoint.Name = "nUD_arc_finalPoint";
+            this.nUD_arc_finalPoint.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arc_finalPoint.TabIndex = 6;
+            this.nUD_arc_finalPoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arc_finalPoint.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nUD_arc_finalPoint.ValueChanged += new System.EventHandler(this.nUD_arc_finalPoint_ValueChanged);
+            // 
+            // lbl_arc_heightS
+            // 
+            this.lbl_arc_heightS.AutoSize = true;
+            this.lbl_arc_heightS.Location = new System.Drawing.Point(6, 21);
+            this.lbl_arc_heightS.Name = "lbl_arc_heightS";
+            this.lbl_arc_heightS.Size = new System.Drawing.Size(96, 13);
+            this.lbl_arc_heightS.TabIndex = 5;
+            this.lbl_arc_heightS.Text = "Height Start Value:";
+            // 
+            // nUD_arc_heightS
+            // 
+            this.nUD_arc_heightS.DecimalPlaces = 5;
+            this.nUD_arc_heightS.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nUD_arc_heightS.Location = new System.Drawing.Point(108, 19);
+            this.nUD_arc_heightS.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nUD_arc_heightS.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nUD_arc_heightS.Name = "nUD_arc_heightS";
+            this.nUD_arc_heightS.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arc_heightS.TabIndex = 4;
+            this.nUD_arc_heightS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arc_heightS.ValueChanged += new System.EventHandler(this.nUD_arc_heightS_ValueChanged);
+            // 
+            // btn_apply
+            // 
+            this.btn_apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_apply.Location = new System.Drawing.Point(12, 255);
+            this.btn_apply.Name = "btn_apply";
+            this.btn_apply.Size = new System.Drawing.Size(119, 23);
+            this.btn_apply.TabIndex = 5;
+            this.btn_apply.Text = "Apply";
+            this.btn_apply.UseVisualStyleBackColor = true;
+            this.btn_apply.Click += new System.EventHandler(this.btn_apply_Click);
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancel.Location = new System.Drawing.Point(153, 255);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(119, 23);
+            this.btn_cancel.TabIndex = 6;
+            this.btn_cancel.Text = "Cancel";
+            this.btn_cancel.UseVisualStyleBackColor = true;
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
+            // 
+            // gBox_arcV
+            // 
+            this.gBox_arcV.Controls.Add(this.lbl_arcV_heightE);
+            this.gBox_arcV.Controls.Add(this.nUD_arcV_heightE);
+            this.gBox_arcV.Controls.Add(this.lbl_arcV_sagitta);
+            this.gBox_arcV.Controls.Add(this.nUD_arcV_sagitta);
+            this.gBox_arcV.Controls.Add(this.lbl_arcV_FinalPoint);
+            this.gBox_arcV.Controls.Add(this.nUD_arcV_finalPoint);
+            this.gBox_arcV.Controls.Add(this.lbl_arcV_heightS);
+            this.gBox_arcV.Controls.Add(this.nUD_arcV_heightS);
+            this.gBox_arcV.Location = new System.Drawing.Point(12, 66);
+            this.gBox_arcV.Name = "gBox_arcV";
+            this.gBox_arcV.Size = new System.Drawing.Size(260, 182);
+            this.gBox_arcV.TabIndex = 10;
+            this.gBox_arcV.TabStop = false;
+            this.gBox_arcV.Text = "ARC Vertical Mode";
+            this.gBox_arcV.Visible = false;
+            // 
+            // lbl_arcV_sagitta
+            // 
+            this.lbl_arcV_sagitta.AutoSize = true;
+            this.lbl_arcV_sagitta.Location = new System.Drawing.Point(6, 99);
+            this.lbl_arcV_sagitta.Name = "lbl_arcV_sagitta";
+            this.lbl_arcV_sagitta.Size = new System.Drawing.Size(73, 13);
+            this.lbl_arcV_sagitta.TabIndex = 9;
+            this.lbl_arcV_sagitta.Text = "Sagitta Value:";
+            // 
+            // nUD_arcV_sagitta
+            // 
+            this.nUD_arcV_sagitta.DecimalPlaces = 1;
+            this.nUD_arcV_sagitta.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nUD_arcV_sagitta.Location = new System.Drawing.Point(108, 97);
+            this.nUD_arcV_sagitta.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nUD_arcV_sagitta.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
+            this.nUD_arcV_sagitta.Name = "nUD_arcV_sagitta";
+            this.nUD_arcV_sagitta.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arcV_sagitta.TabIndex = 8;
+            this.nUD_arcV_sagitta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arcV_sagitta.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nUD_arcV_sagitta.ValueChanged += new System.EventHandler(this.nUD_arcV_sagitta_ValueChanged);
+            // 
+            // lbl_arcV_FinalPoint
+            // 
+            this.lbl_arcV_FinalPoint.AutoSize = true;
+            this.lbl_arcV_FinalPoint.Location = new System.Drawing.Point(6, 74);
+            this.lbl_arcV_FinalPoint.Name = "lbl_arcV_FinalPoint";
+            this.lbl_arcV_FinalPoint.Size = new System.Drawing.Size(59, 13);
+            this.lbl_arcV_FinalPoint.TabIndex = 7;
+            this.lbl_arcV_FinalPoint.Text = "Final Point:";
+            // 
+            // nUD_arcV_finalPoint
+            // 
+            this.nUD_arcV_finalPoint.Location = new System.Drawing.Point(108, 71);
+            this.nUD_arcV_finalPoint.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nUD_arcV_finalPoint.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nUD_arcV_finalPoint.Name = "nUD_arcV_finalPoint";
+            this.nUD_arcV_finalPoint.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arcV_finalPoint.TabIndex = 6;
+            this.nUD_arcV_finalPoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arcV_finalPoint.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nUD_arcV_finalPoint.ValueChanged += new System.EventHandler(this.nUD_arcV_finalPoint_ValueChanged);
+            // 
+            // lbl_arcV_heightS
+            // 
+            this.lbl_arcV_heightS.AutoSize = true;
+            this.lbl_arcV_heightS.Location = new System.Drawing.Point(6, 21);
+            this.lbl_arcV_heightS.Name = "lbl_arcV_heightS";
+            this.lbl_arcV_heightS.Size = new System.Drawing.Size(96, 13);
+            this.lbl_arcV_heightS.TabIndex = 5;
+            this.lbl_arcV_heightS.Text = "Height Start Value:";
+            // 
+            // nUD_arcV_heightS
+            // 
+            this.nUD_arcV_heightS.DecimalPlaces = 5;
+            this.nUD_arcV_heightS.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nUD_arcV_heightS.Location = new System.Drawing.Point(108, 19);
+            this.nUD_arcV_heightS.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nUD_arcV_heightS.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nUD_arcV_heightS.Name = "nUD_arcV_heightS";
+            this.nUD_arcV_heightS.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arcV_heightS.TabIndex = 4;
+            this.nUD_arcV_heightS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arcV_heightS.ValueChanged += new System.EventHandler(this.nUD_arcV_heightS_ValueChanged);
+            // 
+            // lbl_arcV_heightE
+            // 
+            this.lbl_arcV_heightE.AutoSize = true;
+            this.lbl_arcV_heightE.Location = new System.Drawing.Point(6, 47);
+            this.lbl_arcV_heightE.Name = "lbl_arcV_heightE";
+            this.lbl_arcV_heightE.Size = new System.Drawing.Size(96, 13);
+            this.lbl_arcV_heightE.TabIndex = 11;
+            this.lbl_arcV_heightE.Text = "Height Start Value:";
+            // 
+            // nUD_arcV_heightE
+            // 
+            this.nUD_arcV_heightE.DecimalPlaces = 5;
+            this.nUD_arcV_heightE.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nUD_arcV_heightE.Location = new System.Drawing.Point(108, 45);
+            this.nUD_arcV_heightE.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nUD_arcV_heightE.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nUD_arcV_heightE.Name = "nUD_arcV_heightE";
+            this.nUD_arcV_heightE.Size = new System.Drawing.Size(146, 20);
+            this.nUD_arcV_heightE.TabIndex = 10;
+            this.nUD_arcV_heightE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUD_arcV_heightE.ValueChanged += new System.EventHandler(this.nUD_arcV_heightE_ValueChanged);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 285);
+            this.Controls.Add(this.gBox_arcV);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_apply);
             this.Controls.Add(this.gBox_arc);
@@ -384,9 +555,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_multi_heightS)).EndInit();
             this.gBox_arc.ResumeLayout(false);
             this.gBox_arc.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_heightS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_finalPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_sagitta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_finalPoint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arc_heightS)).EndInit();
+            this.gBox_arcV.ResumeLayout(false);
+            this.gBox_arcV.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_sagitta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_finalPoint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_heightS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUD_arcV_heightE)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -412,5 +589,14 @@
         private System.Windows.Forms.NumericUpDown nUD_arc_finalPoint;
         private System.Windows.Forms.Label lbl_arc_sagitta;
         private System.Windows.Forms.NumericUpDown nUD_arc_sagitta;
+        private System.Windows.Forms.GroupBox gBox_arcV;
+        private System.Windows.Forms.Label lbl_arcV_sagitta;
+        private System.Windows.Forms.NumericUpDown nUD_arcV_sagitta;
+        private System.Windows.Forms.Label lbl_arcV_FinalPoint;
+        private System.Windows.Forms.NumericUpDown nUD_arcV_finalPoint;
+        private System.Windows.Forms.Label lbl_arcV_heightS;
+        private System.Windows.Forms.NumericUpDown nUD_arcV_heightS;
+        private System.Windows.Forms.Label lbl_arcV_heightE;
+        private System.Windows.Forms.NumericUpDown nUD_arcV_heightE;
     }
 }

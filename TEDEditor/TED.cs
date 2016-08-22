@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -561,6 +562,43 @@ namespace TEDEditor
             System.Diagnostics.Debug.WriteLine(((zValues.Max()) - (zValues.Min())).ToString("F9"));
 
             return (vertices.ToArray());
+        }
+
+        public static Vertex[] GetHeightsV2(float zScale = 1.0F)
+        {
+            int index = 0;
+            Vertex[] heightsList = new Vertex[heights.Length];
+            foreach (var height in heights)
+            {
+                int bank_index = getBankIndex(index, banks);
+                Load_Bank bank = banks[bank_index];
+                double x = getDistance(bank, index);
+                double y = height.m_Height;
+                heightsList[index] = new Vertex() { Y = x, Z = y };
+                index += 1;
+            }
+
+            return heightsList;
+        }
+
+        private static int getBankIndex(int index, Load_Bank[] banks)
+        {
+            int bank_index = -1;
+            foreach (var bank in banks)
+                if (index >= bank.m_divStart)
+                    bank_index += 1;
+                else
+                    break;
+            return bank_index;
+        }
+
+        private static double getDistance(Load_Bank bank, int index)
+        {
+            double vlen = bank.m_vlen;
+            uint divNum = bank.m_divCount;
+            int m_divStart = bank.m_divStart;
+            double vpos = bank.m_vpos;
+            return vlen / divNum * (index - m_divStart) + vpos;
         }
 
         public static bool SetHeights(Vertex[] new_heights, float zScale = 1.0F)

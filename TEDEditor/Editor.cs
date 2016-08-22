@@ -15,13 +15,15 @@ namespace TEDEditor
         {
             SINGLE,
             MULTI,
-            ARC,
+            ARC_Horizontal,
+            ARC_Vertical,
             NONE = -1
         }
 
         #region Private Variables
         ListView lView;
         decimal sagittaOldVal;
+        decimal sagittaOldVal_Vertical;
         #endregion
 
         #region Accessors
@@ -36,10 +38,17 @@ namespace TEDEditor
         public decimal multiHeightEVal { get; set; }
         #endregion
 
-        #region ARC
+        #region ARC Horizontal
         public decimal arcHeightSVal { get; set; }
         public decimal arcFinalPoint { get; set; }
         public decimal arcSagitta { get; set; }
+        #endregion
+
+        #region ARC Vertical
+        public decimal arcVHeightSVal { get; set; }
+        public decimal arcVHeightEVal { get; set; }
+        public decimal arcVFinalPoint { get; set; }
+        public decimal arcVSagitta { get; set; }
         #endregion
 
         #endregion
@@ -56,6 +65,10 @@ namespace TEDEditor
 
             this.lView = lView;
 
+#if DEBUG
+            cBox_mode.Items.Add("ARC Vertical");
+#endif
+
             if (index < cBox_mode.Items.Count)
                 cBox_mode.SelectedIndex = index;
         }
@@ -69,6 +82,7 @@ namespace TEDEditor
             gBox_single.Visible = false;
             gBox_multi.Visible = false;
             gBox_arc.Visible = false;
+            gBox_arcV.Visible = false;
             if (editorMode == Editor_Mode.SINGLE)
             {
                 if (lView != null && lView.SelectedItems.Count > 0)
@@ -85,19 +99,34 @@ namespace TEDEditor
                 
                 gBox_multi.Visible = true;
             }
-            else if (editorMode == Editor_Mode.ARC)
+            else if (editorMode == Editor_Mode.ARC_Horizontal)
             {
                 if (lView != null && lView.SelectedItems.Count > 0)
                 {
                     nUD_arc_heightS.Value = Convert.ToDecimal(lView.SelectedItems[0].SubItems[2].Text);
-                    //nUD_arc_finalPoint.Minimum = Convert.ToInt32(lView.SelectedItems[0].Text) + 1;
-                    //nUD_arc_finalPoint.Maximum = (lView.Items.Count - 1);
+                    nUD_arc_finalPoint.Minimum = Convert.ToInt32(lView.SelectedItems[0].Text) + 1;
+                    nUD_arc_finalPoint.Maximum = Convert.ToInt32(lView.SelectedItems[lView.SelectedItems.Count - 1].Text);
                     nUD_arc_finalPoint.Value = Convert.ToInt32(lView.SelectedItems[(lView.SelectedItems.Count - 1)].Text);
                     nUD_arc_sagitta.Value = 0.1M;
                     arcSagitta = nUD_arc_sagitta.Value;
                 }
 
                 gBox_arc.Visible = true;
+            }
+            else if (editorMode == Editor_Mode.ARC_Vertical)
+            {
+                if (lView != null && lView.SelectedItems.Count > 0)
+                {
+                    nUD_arcV_heightS.Value = Convert.ToDecimal(lView.SelectedItems[0].SubItems[2].Text);
+                    nUD_arcV_heightE.Value = Convert.ToDecimal(lView.SelectedItems[lView.SelectedItems.Count - 1].SubItems[2].Text);
+                    nUD_arcV_finalPoint.Minimum = Convert.ToInt32(lView.SelectedItems[0].Text) + 1;
+                    nUD_arcV_finalPoint.Maximum = Convert.ToInt32(lView.SelectedItems[lView.SelectedItems.Count - 1].Text);
+                    nUD_arcV_finalPoint.Value = Convert.ToInt32(lView.SelectedItems[(lView.SelectedItems.Count - 1)].Text);
+                    nUD_arcV_sagitta.Value = 0.1M;
+                    arcSagitta = nUD_arcV_sagitta.Value;
+                }
+
+                gBox_arcV.Visible = true;
             }
         }
 
@@ -131,7 +160,7 @@ namespace TEDEditor
         }
         #endregion
 
-        #region ARC
+        #region ARC Horizontal
         private void nUD_arc_heightS_ValueChanged(object sender, EventArgs e)
         {
             arcHeightSVal = nUD_arc_heightS.Value;
@@ -159,6 +188,43 @@ namespace TEDEditor
 
             arcSagitta = value;
             sagittaOldVal = value;
+        }
+
+        #endregion
+
+        #region ARC Vertical
+        private void nUD_arcV_heightS_ValueChanged(object sender, EventArgs e)
+        {
+            arcVHeightSVal = nUD_arcV_heightS.Value;
+        }
+
+        private void nUD_arcV_heightE_ValueChanged(object sender, EventArgs e)
+        {
+            arcVHeightEVal = nUD_arcV_heightE.Value;
+        }
+
+        private void nUD_arcV_finalPoint_ValueChanged(object sender, EventArgs e)
+        {
+            arcVFinalPoint = nUD_arcV_finalPoint.Value;
+        }
+
+        private void nUD_arcV_sagitta_ValueChanged(object sender, EventArgs e)
+        {
+            decimal value = nUD_arcV_sagitta.Value;
+            if (value == 0)
+                if (value > sagittaOldVal_Vertical)
+                {
+                    value += 0.1M;
+                    nUD_arcV_sagitta.Value = value;
+                }
+                else
+                {
+                    value -= 0.1M;
+                    nUD_arcV_sagitta.Value = value;
+                }
+
+            arcVSagitta = value;
+            sagittaOldVal_Vertical = value;
         }
         #endregion
     }

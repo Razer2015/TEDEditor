@@ -81,6 +81,11 @@
     <Compile Include="PDIDATETIME32.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TED.cs" />
     <Compile Include="Vertex.cs" />
   </ItemGroup>
@@ -91,9 +96,217 @@
     <EmbeddedResource Include="GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Resources\Undo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_11x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_48x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_64x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_grey_256x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_red_7x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_red_7x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Undo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_grey_11x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_grey_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_grey_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_grey_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_8x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_12x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_NoHalo_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_White_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_WhiteNoHalo_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_Close_32x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_Close_header_32x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_CloseErrorBoxBlue1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_CloseErrorBoxBlue2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_CloseErrorBoxGrey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_CloseErrorBoxLtGrey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Close_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Close_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Close_whiteBlackHalo_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Close_whiteNoHalo_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_Save_32x96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\F12_Save_36x108.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_20x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_24x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_40x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_48x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_64x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_128x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_256x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveAs_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveClose_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar1_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar2_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar3_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar4_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar5_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar6_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar7_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar8_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveStatusBar9_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Save_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_Save_whiteNoHalo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_SaveAs_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_SaveClose_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSO_SaveClose_whiteNoHalo_16x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

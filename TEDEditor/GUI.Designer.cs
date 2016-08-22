@@ -29,18 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.elevation_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.fLP_elevations = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dismissToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elevationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayElevationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,11 +52,10 @@
             this.modifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayModifiedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayModifiedPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateNumericUpDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sINGLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bRUSHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.revertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,7 +64,10 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateNumericUpDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.elevation_chart)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -70,39 +76,40 @@
             // 
             // elevation_chart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.elevation_chart.ChartAreas.Add(chartArea2);
+            chartArea4.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea4.Name = "ChartArea1";
+            this.elevation_chart.ChartAreas.Add(chartArea4);
             this.elevation_chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.elevation_chart.Legends.Add(legend2);
+            legend4.Name = "Legend1";
+            this.elevation_chart.Legends.Add(legend4);
             this.elevation_chart.Location = new System.Drawing.Point(230, 24);
             this.elevation_chart.Name = "elevation_chart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series6.Legend = "Legend1";
-            series6.Name = "Elevation";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
-            series7.Legend = "Legend1";
-            series7.Name = "Elevation Points";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series8.Legend = "Legend1";
-            series8.Name = "Modified";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
-            series9.Legend = "Legend1";
-            series9.Name = "Modified Points";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
-            series10.IsVisibleInLegend = false;
-            series10.Legend = "Legend1";
-            series10.Name = "Selected";
-            this.elevation_chart.Series.Add(series6);
-            this.elevation_chart.Series.Add(series7);
-            this.elevation_chart.Series.Add(series8);
-            this.elevation_chart.Series.Add(series9);
-            this.elevation_chart.Series.Add(series10);
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series16.Legend = "Legend1";
+            series16.Name = "Elevation";
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
+            series17.Legend = "Legend1";
+            series17.Name = "Elevation Points";
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series18.Legend = "Legend1";
+            series18.Name = "Modified";
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
+            series19.Legend = "Legend1";
+            series19.Name = "Modified Points";
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
+            series20.IsVisibleInLegend = false;
+            series20.Legend = "Legend1";
+            series20.Name = "Selected";
+            this.elevation_chart.Series.Add(series16);
+            this.elevation_chart.Series.Add(series17);
+            this.elevation_chart.Series.Add(series18);
+            this.elevation_chart.Series.Add(series19);
+            this.elevation_chart.Series.Add(series20);
             this.elevation_chart.Size = new System.Drawing.Size(694, 279);
             this.elevation_chart.TabIndex = 2;
             this.elevation_chart.Text = "Elevation";
@@ -126,31 +133,63 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
-            this.dismissToolStripMenuItem,
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem1,
             this.displayToolStripMenuItem,
-            this.editorModeToolStripMenuItem,
-            this.revertToolStripMenuItem,
-            this.redoToolStripMenuItem});
+            this.editorModeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1210, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // saveToolStripMenuItem
+            // fileToolStripMenuItem
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.saveToolStripMenuItem1,
+            this.saveAsToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
             // 
-            // dismissToolStripMenuItem
+            // toolStripMenuItem2
             // 
-            this.dismissToolStripMenuItem.Name = "dismissToolStripMenuItem";
-            this.dismissToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.dismissToolStripMenuItem.Text = "Dismiss";
-            this.dismissToolStripMenuItem.Click += new System.EventHandler(this.dismissToolStripMenuItem_Click);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Image = global::TEDEditor.Properties.Resources.VSO_SaveClose_16x;
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Image = global::TEDEditor.Properties.Resources.SaveAs_16x;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // editToolStripMenuItem1
+            // 
+            this.editToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.redoToolStripMenuItem1});
+            this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+            this.editToolStripMenuItem1.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem1.Text = "Edit";
             // 
             // displayToolStripMenuItem
             // 
@@ -159,8 +198,8 @@
             this.modifiedToolStripMenuItem,
             this.generateNumericUpDownToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.displayToolStripMenuItem.Text = "Display Settings";
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.displayToolStripMenuItem.Text = "View";
             // 
             // elevationToolStripMenuItem
             // 
@@ -176,15 +215,15 @@
             this.displayElevationToolStripMenuItem.Checked = true;
             this.displayElevationToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.displayElevationToolStripMenuItem.Name = "displayElevationToolStripMenuItem";
-            this.displayElevationToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.displayElevationToolStripMenuItem.Text = "Display Elevation";
+            this.displayElevationToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.displayElevationToolStripMenuItem.Text = "Elevation Line";
             this.displayElevationToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // displayElevationPointsToolStripMenuItem
             // 
             this.displayElevationPointsToolStripMenuItem.Name = "displayElevationPointsToolStripMenuItem";
-            this.displayElevationPointsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.displayElevationPointsToolStripMenuItem.Text = "Display Elevation Points";
+            this.displayElevationPointsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.displayElevationPointsToolStripMenuItem.Text = "Elevation Points";
             this.displayElevationPointsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // modifiedToolStripMenuItem
@@ -201,8 +240,8 @@
             this.displayModifiedToolStripMenuItem.Checked = true;
             this.displayModifiedToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.displayModifiedToolStripMenuItem.Name = "displayModifiedToolStripMenuItem";
-            this.displayModifiedToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.displayModifiedToolStripMenuItem.Text = "Display Modified";
+            this.displayModifiedToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.displayModifiedToolStripMenuItem.Text = "Modified Line";
             this.displayModifiedToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // displayModifiedPointsToolStripMenuItem
@@ -210,9 +249,16 @@
             this.displayModifiedPointsToolStripMenuItem.Checked = true;
             this.displayModifiedPointsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.displayModifiedPointsToolStripMenuItem.Name = "displayModifiedPointsToolStripMenuItem";
-            this.displayModifiedPointsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.displayModifiedPointsToolStripMenuItem.Text = "Display Modified Points";
+            this.displayModifiedPointsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.displayModifiedPointsToolStripMenuItem.Text = "Modified Points";
             this.displayModifiedPointsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // generateNumericUpDownToolStripMenuItem
+            // 
+            this.generateNumericUpDownToolStripMenuItem.Name = "generateNumericUpDownToolStripMenuItem";
+            this.generateNumericUpDownToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.generateNumericUpDownToolStripMenuItem.Text = "Generate Edit Boxes";
+            this.generateNumericUpDownToolStripMenuItem.Click += new System.EventHandler(this.generateNumericUpDownToolStripMenuItem_Click);
             // 
             // editorModeToolStripMenuItem
             // 
@@ -239,22 +285,6 @@
             this.bRUSHToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.bRUSHToolStripMenuItem.Text = "BRUSH";
             this.bRUSHToolStripMenuItem.Click += new System.EventHandler(this.EditorModeToolStripMenuItem_Click);
-            // 
-            // revertToolStripMenuItem
-            // 
-            this.revertToolStripMenuItem.Enabled = false;
-            this.revertToolStripMenuItem.Name = "revertToolStripMenuItem";
-            this.revertToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.revertToolStripMenuItem.Text = "Revert";
-            this.revertToolStripMenuItem.Click += new System.EventHandler(this.revertToolStripMenuItem_Click);
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Enabled = false;
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // listView1
             // 
@@ -318,12 +348,39 @@
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
-            // generateNumericUpDownToolStripMenuItem
+            // closeToolStripMenuItem
             // 
-            this.generateNumericUpDownToolStripMenuItem.Name = "generateNumericUpDownToolStripMenuItem";
-            this.generateNumericUpDownToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.generateNumericUpDownToolStripMenuItem.Text = "Generate numericUpDown";
-            this.generateNumericUpDownToolStripMenuItem.Click += new System.EventHandler(this.generateNumericUpDownToolStripMenuItem_Click);
+            this.closeToolStripMenuItem.Image = global::TEDEditor.Properties.Resources.Close_NoHalo_12x_16x;
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = global::TEDEditor.Properties.Resources.Close_12x_16x;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Image = global::TEDEditor.Properties.Resources.Undo_grey_16x;
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem1
+            // 
+            this.redoToolStripMenuItem1.Image = global::TEDEditor.Properties.Resources.Redo_grey_16x;
+            this.redoToolStripMenuItem1.Name = "redoToolStripMenuItem1";
+            this.redoToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.redoToolStripMenuItem1.Text = "Redo";
+            this.redoToolStripMenuItem1.Click += new System.EventHandler(this.redoToolStripMenuItem1_Click);
             // 
             // GUI
             // 
@@ -364,12 +421,8 @@
         private System.Windows.Forms.ToolStripMenuItem modifiedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayModifiedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayModifiedPointsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dismissToolStripMenuItem;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ToolStripMenuItem revertToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripMenuItem editorModeToolStripMenuItem;
@@ -380,5 +433,15 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateNumericUpDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem1;
     }
 }

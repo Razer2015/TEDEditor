@@ -28,6 +28,7 @@ namespace TEDEditor
         // RETURNS
         public DialogResult Result { get; set; }
         public Vertex[] Field1 { get; set; }
+        public String SavePath { get; set; }
 
         // 
         String elevation_name = "";
@@ -75,6 +76,7 @@ namespace TEDEditor
             this.DoubleBuffered = true;
 
             this.elevation_chart.ChartAreas[0].AxisX.IsStartedFromZero = true;
+            //this.elevation_chart.ChartAreas[0].AxisX.Interval = 1;
 
             this.elevation_chart.ChartAreas[0].CursorX.IsUserEnabled = true;
             this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
@@ -89,7 +91,7 @@ namespace TEDEditor
 
             elevation_chart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             elevation_chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(chData_MouseWheel);
-            elevation_chart.AlignDataPointsByAxisLabel();
+            //elevation_chart.AlignDataPointsByAxisLabel();
 
             this.orig_heights = DeepCopy<Vertex[]>(heights);
             this.mod_heights = DeepCopy<Vertex[]>(heights);
@@ -99,6 +101,105 @@ namespace TEDEditor
             Visualize(this.orig_heights);
             Visualize_mod(this.mod_heights);
         }
+
+        #region ToolStripMenuItems
+
+        #region File
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Result = DialogResult.OK;
+            Field1 = this.mod_heights;
+            this.Close();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "GT6TED File | *.ted";
+            dialog.DefaultExt = "ted";
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                SavePath = dialog.FileName;
+                Result = DialogResult.OK;
+                Field1 = this.mod_heights;
+                this.Close();
+            }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Result = DialogResult.Cancel;
+            Field1 = this.orig_heights;
+            this.Close();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        #endregion
+
+        #region Edit
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Revert();
+        }
+
+        private void redoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Redo();
+        }
+        #endregion
+
+        #region View
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
+            TSMI.Checked = !TSMI.Checked;
+
+            elevation_chart.Series[elevation_name].Enabled = displayElevationToolStripMenuItem.Checked;
+            elevation_chart.Series[elevation_point_name].Enabled = displayElevationPointsToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_name].Enabled = displayModifiedToolStripMenuItem.Checked;
+            elevation_chart.Series[modified_point_name].Enabled = displayModifiedPointsToolStripMenuItem.Checked;
+        }
+
+        private void generateNumericUpDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            generateNumericUpDownToolStripMenuItem.Checked = !generateNumericUpDownToolStripMenuItem.Checked;
+        }
+        #endregion
+
+        #region EditorMode
+        private void EditorModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
+
+            // RESET
+            sINGLEToolStripMenuItem.Checked = false;
+            bRUSHToolStripMenuItem.Checked = false;
+
+            // SET
+            if (TSMI == sINGLEToolStripMenuItem)
+                sINGLEToolStripMenuItem.Checked = true;
+            else if (TSMI == bRUSHToolStripMenuItem)
+                bRUSHToolStripMenuItem.Checked = true;
+
+            if (sINGLEToolStripMenuItem.Checked)
+            {
+                this.elevation_chart.ChartAreas[0].CursorX.IsUserEnabled = true;
+                this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+                editType = EditType.SINGLE;
+            }
+            else if (bRUSHToolStripMenuItem.Checked)
+            {
+                this.elevation_chart.ChartAreas[0].CursorX.IsUserEnabled = false;
+                this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
+                editType = EditType.BRUSH;
+            }
+        } 
+        #endregion
+
+        #endregion
 
         private void Populate_ListView(Vertex[] heights)
         {
@@ -190,11 +291,42 @@ namespace TEDEditor
             Loaded = true;
         }
 
+        /// <summary>
+        /// Get the maximum and minimum height values
+        /// double[0] = Maximum X
+        /// double[1] = Maximum Y
+        /// double[2] = Minimum X
+        /// double[3] = Minimum Y
+        /// </summary>
+        /// <param name="heights"></param>
+        /// <returns></returns>
+        private double[] getMinMax(Vertex[] heights)
+        {
+            double[] minMax = new double[4];
+            for (int i = 0; i < heights.Length; i++)
+            {
+                if (i == 0 || heights[i].Y > minMax[0])
+                    minMax[0] = heights[i].Y;
+                if (i == 0 || heights[i].Z > minMax[1])
+                    minMax[1] = heights[i].Z;
+                if (i == 0 || heights[i].Y < minMax[2])
+                    minMax[2] = heights[i].Y;
+                if (i == 0 || heights[i].Z < minMax[3])
+                    minMax[3] = heights[i].Z;
+            }
+            return (minMax);
+        }
+
         public void Visualize(Vertex[] heights)
         {
             // Clear
             elevation_chart.Series[elevation_name].Points.Clear();
             elevation_chart.Series[elevation_point_name].Points.Clear();
+
+            // Set Max and Min
+            //double[] MinMax = getMinMax(heights);
+            //elevation_chart.ChartAreas[0].AxisX.Maximum = heights.Max(y => y.Y);
+            //elevation_chart.ChartAreas[0].AxisX.Minimum = heights.Min(y => y.Y);
 
             // Populate
             for (int i = 0; i < heights.Length; i++)
@@ -291,17 +423,6 @@ namespace TEDEditor
             catch { }
         }
 
-        private void ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
-            TSMI.Checked = !TSMI.Checked;
-
-            elevation_chart.Series[elevation_name].Enabled = displayElevationToolStripMenuItem.Checked;
-            elevation_chart.Series[elevation_point_name].Enabled = displayElevationPointsToolStripMenuItem.Checked;
-            elevation_chart.Series[modified_name].Enabled = displayModifiedToolStripMenuItem.Checked;
-            elevation_chart.Series[modified_point_name].Enabled = displayModifiedPointsToolStripMenuItem.Checked;
-        }
-
         public static T DeepCopy<T>(T obj)
         {
             using (MemoryStream stream = new MemoryStream())
@@ -319,14 +440,14 @@ namespace TEDEditor
         private void CheckHistoryStatus()
         {
             if (revert.Count > 0)
-                revertToolStripMenuItem.Enabled = true;
+                undoToolStripMenuItem.Enabled = true;
             else
-                revertToolStripMenuItem.Enabled = false;
+                undoToolStripMenuItem.Enabled = false;
 
             if (redo.Count > 0)
-                redoToolStripMenuItem.Enabled = true;
+                redoToolStripMenuItem1.Enabled = true;
             else
-                redoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem1.Enabled = false;
         }
 
         private void Revert()
@@ -425,16 +546,6 @@ namespace TEDEditor
             CheckHistoryStatus();
         }
 
-        private void revertToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Revert();
-        }
-
-        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Redo();
-        }
-
         private void GUI_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.Z)
@@ -476,8 +587,34 @@ namespace TEDEditor
 #endif
                 toolStripStatusLabel1.Text = String.Format("Selected Point: {0} | X: {1} | Y: {2}",
                     result.PointIndex,
-                    this.elevation_chart.Series[3].Points[this.draggedPointIndex].XValue,
-                    this.elevation_chart.Series[3].Points[this.draggedPointIndex].YValues[0]);
+                    this.elevation_chart.Series[3].Points[result.PointIndex].XValue,
+                    this.elevation_chart.Series[3].Points[result.PointIndex].YValues[0]);
+
+                // Select in a listView
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    if (listView1.SelectedItems.Count < 1)
+                    {
+                        this.listView1.SelectedItems.Clear();
+                        this.listView1.Items[result.PointIndex].Selected = true;
+                    }
+                    else
+                    {
+                        int highestIndex = this.listView1.SelectedItems[this.listView1.SelectedItems.Count - 1].Index;
+                        int lowestIndex = result.PointIndex;
+                        if (lowestIndex > highestIndex)
+                            highestIndex = highestIndex.Swap(ref lowestIndex);
+                        for(int i = lowestIndex; i < (highestIndex + 1);i++)
+                            this.listView1.Items[i].Selected = true;
+                    }
+                }
+                else
+                {
+                    this.listView1.SelectedItems.Clear();
+                    this.listView1.Items[result.PointIndex].Selected = true;
+                }
+                this.listView1.Select();
+                this.listView1.TopItem = this.listView1.SelectedItems[0];
             }
         }
 
@@ -488,25 +625,25 @@ namespace TEDEditor
                 //call HitTest
                 HitTestResult result = this.elevation_chart.HitTest(e.X, e.Y);
 
-                // reset all data point attributes
-                foreach (DataPoint point in this.elevation_chart.Series[3].Points)
-                {
-                    this.dataPointResetAppearance(point);
-                }
-                foreach (DataPoint point in this.elevation_chart.Series[2].Points)
-                {
-                    this.dataPointResetAppearance(point);
-                }
+                //// reset all data point attributes
+                //foreach (DataPoint point in this.elevation_chart.Series[3].Points)
+                //{
+                //    this.dataPointResetAppearance(point);
+                //}
+                //foreach (DataPoint point in this.elevation_chart.Series[2].Points)
+                //{
+                //    this.dataPointResetAppearance(point);
+                //}
 
-                //if mouse is over a data point
-                if (result.ChartElementType == ChartElementType.DataPoint)
-                {
-                    //find mouse-over data point
-                    DataPoint point = this.elevation_chart.Series[3].Points[result.PointIndex];
+                ////if mouse is over a data point
+                //if (result.ChartElementType == ChartElementType.DataPoint)
+                //{
+                //    //find mouse-over data point
+                //    DataPoint point = this.elevation_chart.Series[3].Points[result.PointIndex];
 
-                    //change appearance of that data point 
-                    this.dataPointSetMouseOverAppearance(point);
-                }
+                //    //change appearance of that data point 
+                //    this.dataPointSetMouseOverAppearance(point);
+                //}
 
                 //additionally, if mouse is dragging a data point
                 if (this.isDraggingPoint)
@@ -644,12 +781,16 @@ namespace TEDEditor
 
         private void chart_MouseDown(object sender, MouseEventArgs e)
         {
+            if (Control.ModifierKeys == Keys.Shift)
+                return;
             if (editType == EditType.SINGLE)
             {
                 HitTestResult result = this.elevation_chart.HitTest(e.X, e.Y);
 
                 if (result.ChartElementType == ChartElementType.DataPoint)
                 {
+                    this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
+
                     // store the index of the point being dragged
                     this.draggedPointIndex = result.PointIndex;
                     this.isDraggingPoint = true;
@@ -705,6 +846,8 @@ namespace TEDEditor
                     tooltip.Hide(this.elevation_chart);
 
                     CheckHistoryStatus();
+
+                    this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
                 }
 
                 this.draggedPointIndex = -1;
@@ -734,20 +877,6 @@ namespace TEDEditor
 
         #endregion
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Result = DialogResult.OK;
-            Field1 = this.mod_heights;
-            this.Close();
-        }
-
-        private void dismissToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Result = DialogResult.Cancel;
-            Field1 = this.orig_heights;
-            this.Close();
-        }
-
         private void GUI_Load(object sender, EventArgs e)
         {
             // To support calling ShowDialog from test method...
@@ -761,34 +890,6 @@ namespace TEDEditor
                 Pen skyBluePen = new Pen(Brushes.DeepSkyBlue);
                 e.Graphics.DrawEllipse(skyBluePen, x - 25, y - 25, 50, 50);
                 //e.Graphics.DrawEllipse(skyBluePen, x - 150, y - 150, 300, 300);
-            }
-        }
-
-        private void EditorModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
-
-            // RESET
-            sINGLEToolStripMenuItem.Checked = false;
-            bRUSHToolStripMenuItem.Checked = false;
-
-            // SET
-            if (TSMI == sINGLEToolStripMenuItem)
-                sINGLEToolStripMenuItem.Checked = true;
-            else if (TSMI == bRUSHToolStripMenuItem)
-                bRUSHToolStripMenuItem.Checked = true;
-
-            if (sINGLEToolStripMenuItem.Checked)
-            {
-                this.elevation_chart.ChartAreas[0].CursorX.IsUserEnabled = true;
-                this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-                editType = EditType.SINGLE;
-            }
-            else if (bRUSHToolStripMenuItem.Checked)
-            {
-                this.elevation_chart.ChartAreas[0].CursorX.IsUserEnabled = false;
-                this.elevation_chart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
-                editType = EditType.BRUSH;
             }
         }
 
@@ -890,10 +991,11 @@ namespace TEDEditor
                 }
                 else if (editor.editorMode == Editor.Editor_Mode.MULTI)
                 {
-                    double start = (double)editor.multiHeightSVal;
-                    double end = (double)editor.multiHeightEVal;
-                    double difference = GetDifference(listView1.SelectedItems.Count - 1, start, end);
-                    double difference2 = GetDifference(listView1.SelectedItems.Count, start, end);
+                    double start_x = this.mod_heights[Convert.ToInt32(listView1.SelectedItems[0].Text)].Y;
+                    double end_x = this.mod_heights[Convert.ToInt32(listView1.SelectedItems[(listView1.SelectedItems.Count - 1)].Text)].Y;
+
+                    double start_y = (double)editor.multiHeightSVal;
+                    double end_y = (double)editor.multiHeightEVal;
 
                     int index = 0;
                     foreach (ListViewItem item in listView1.SelectedItems)
@@ -905,19 +1007,23 @@ namespace TEDEditor
 
                         CheckHistoryStatus();
 
-                        this.mod_heights[entry].Z = (start - (difference * index));
-                        item.SubItems[2].Text = (start - (difference * index)).ToString();
+                        double new_x = this.mod_heights[entry].Y - start_x;
+                        double slope = (end_y - start_y) / (end_x - start_x);
+                        double new_y = (((slope * new_x) + start_y));
+
+                        this.mod_heights[entry].Z = new_y;
+                        item.SubItems[2].Text = new_y.ToString();
 
                         this.elevation_chart.Series[2].Points[entry].YValues[0] = this.mod_heights[entry].Z;
                         this.elevation_chart.Series[3].Points[entry].YValues[0] = this.mod_heights[entry].Z;
                         index++;
                     }
                 }
-                else if (editor.editorMode == Editor.Editor_Mode.ARC)
+                else if (editor.editorMode == Editor.Editor_Mode.ARC_Horizontal)
                 {
                     double sagitta = (double)editor.arcSagitta;
                     double firstPoint = this.mod_heights[Convert.ToInt32(listView1.SelectedItems[0].Text)].Y;
-                    double width = this.mod_heights[(int)editor.arcFinalPoint].Y - firstPoint;
+                    double width = this.mod_heights[Convert.ToInt32(listView1.SelectedItems[(listView1.SelectedItems.Count - 1)].Text)].Y - firstPoint;
                     double radius = GetRadius(sagitta, width);
                     double centerPoint = firstPoint + (width / 2);
                     double heightChange = 0;
@@ -925,6 +1031,9 @@ namespace TEDEditor
                     foreach (ListViewItem item in listView1.SelectedItems)
                     {
                         int entry = Convert.ToInt32(item.Text);
+                        if (entry >= editor.arcFinalPoint)
+                            break;
+
                         revert.Add(new History() { Index = entry, X = this.mod_heights[entry].Y, Y = this.mod_heights[entry].Z });
                         if (redo.Count > 0)
                             redo = new List<History>();
@@ -935,7 +1044,44 @@ namespace TEDEditor
                         double new_X_offset = this.mod_heights[entry].Y - centerPoint;
                         double Z = (sagitta < 0) ? (GetHeightARCPoint(sagitta, radius, new_X_offset) * -1) : GetHeightARCPoint(sagitta, radius, new_X_offset);
                         if (index == 0)
-                            heightChange = this.mod_heights[entry].Z - Z;
+                            heightChange = (double)editor.arcHeightSVal - Z;
+                        Z += heightChange;
+
+                        this.mod_heights[entry].Z = Z;
+                        item.SubItems[2].Text = Z.ToString();
+
+                        this.elevation_chart.Series[2].Points[entry].YValues[0] = this.mod_heights[entry].Z;
+                        this.elevation_chart.Series[3].Points[entry].YValues[0] = this.mod_heights[entry].Z;
+                        index++;
+                    }
+                }
+
+                else if (editor.editorMode == Editor.Editor_Mode.ARC_Vertical)
+                {
+                    double sagitta = (double)editor.arcVSagitta;
+                    double firstPoint = (double)editor.arcVHeightSVal;
+                    double width = (double)editor.arcVHeightEVal - firstPoint;
+                    double radius = GetRadius(sagitta, width);
+                    double centerPoint = firstPoint + (width / 2);
+                    double heightChange = 0;
+                    int index = 0;
+                    foreach (ListViewItem item in listView1.SelectedItems)
+                    {
+                        int entry = Convert.ToInt32(item.Text);
+                        if (entry >= editor.arcVFinalPoint)
+                            break;
+
+                        revert.Add(new History() { Index = entry, X = this.mod_heights[entry].Y, Y = this.mod_heights[entry].Z });
+                        if (redo.Count > 0)
+                            redo = new List<History>();
+
+                        CheckHistoryStatus();
+
+                        //Point Calculation
+                        double new_X_offset = this.mod_heights[entry].Z - centerPoint;
+                        double Z = (sagitta < 0) ? (GetHeightARCPoint(sagitta, radius, new_X_offset) * -1) : GetHeightARCPoint(sagitta, radius, new_X_offset);
+                        if (index == 0)
+                            heightChange = (double)editor.arcVHeightSVal - Z;
                         Z += heightChange;
 
                         this.mod_heights[entry].Z = Z;
@@ -1001,11 +1147,6 @@ namespace TEDEditor
                 return (pointA);
             }
         }
-
-        private void generateNumericUpDownToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            generateNumericUpDownToolStripMenuItem.Checked = !generateNumericUpDownToolStripMenuItem.Checked;
-        }
     }
 
     public class History
@@ -1013,5 +1154,15 @@ namespace TEDEditor
         public int Index { get; set; }
         public Double X { get; set; }
         public Double Y { get; set; }
+    }
+}
+
+static class SwapExtension
+{
+    public static T Swap<T>(this T x, ref T y)
+    {
+        T t = y;
+        y = x;
+        return t;
     }
 }

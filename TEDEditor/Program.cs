@@ -10,6 +10,7 @@ namespace TEDEditor
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             if(args.Length < 1)
@@ -69,6 +70,7 @@ namespace TEDEditor
 
                 if (File.Exists(args[1]))
                 {
+                    PrintInfo(false);
                     FileInfo fi = new FileInfo(args[1]);
                     using (FileStream fs = new FileStream(fi.FullName, FileMode.Open, FileAccess.Read))
                     {
@@ -77,22 +79,60 @@ namespace TEDEditor
                     }
 
                     // Editor
-                    GUI gui = new GUI(TED.GetHeights());
+                    GUI gui = new GUI(TED.GetHeightsV2());
                     gui.ShowDialog();
                     if (gui.Result == System.Windows.Forms.DialogResult.OK)
                         TED.SetHeights(gui.Field1);
 
-                    if (args.Length >= 3)
-                        File.WriteAllBytes(args[2], TED.Write());
+                    if (!String.IsNullOrEmpty(gui.SavePath))
+                        File.WriteAllBytes(gui.SavePath, TED.Write());
                     else
-                        File.WriteAllBytes(fi.FullName, TED.Write());
+                    {
+                        if (args.Length >= 2)
+                            File.WriteAllBytes(args[1], TED.Write());
+                        else
+                            File.WriteAllBytes(fi.FullName, TED.Write());
+                    }
 
                     gui.Dispose();
                 }
             }
+            else
+            {
+                if (File.Exists(args[0]))
+                {
+                    PrintInfo(false);
+                    FileInfo fi = new FileInfo(args[0]);
+                    using (FileStream fs = new FileStream(fi.FullName, FileMode.Open, FileAccess.Read))
+                    {
+                        EndianBinReader reader = new EndianBinReader(fs);
+                        TED.Read(reader);
+                    }
+
+                    // Editor
+                    GUI gui = new GUI(TED.GetHeightsV2());
+                    gui.ShowDialog();
+                    if (gui.Result == System.Windows.Forms.DialogResult.OK)
+                        TED.SetHeights(gui.Field1);
+
+                    if(!String.IsNullOrEmpty(gui.SavePath))
+                        File.WriteAllBytes(gui.SavePath, TED.Write());
+                    else
+                    {
+                        if (args.Length >= 2)
+                            File.WriteAllBytes(args[1], TED.Write());
+                        else
+                            File.WriteAllBytes(fi.FullName, TED.Write());
+                    }
+
+                    gui.Dispose();
+                }
+                else
+                    PrintInfo();
+            }
         }
 
-        static void PrintInfo()
+        static void PrintInfo(bool examples = true)
         {
             var versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
             var version = versionInfo.FileVersion;
@@ -109,9 +149,12 @@ namespace TEDEditor
             Console.WriteLine("+--------------+-----------------------------------------------+");
             Console.WriteLine(Environment.NewLine);
 
-            Console.WriteLine("Example: TEDEditor.exe -read extracted.ted");
-            Console.WriteLine("Example: TEDEditor.exe -write extracted.ted newheights.csv newted.ted");
-            Console.WriteLine("Example: TEDEditor.exe -edit extracted.ted newted.ted");
+            if (examples)
+            {
+                Console.WriteLine("Example: TEDEditor.exe -read extracted.ted");
+                Console.WriteLine("Example: TEDEditor.exe -write extracted.ted newheights.csv newted.ted");
+                Console.WriteLine("Example: TEDEditor.exe -edit extracted.ted newted.ted");
+            }
         }
     }
 }
