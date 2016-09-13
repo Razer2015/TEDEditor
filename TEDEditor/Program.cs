@@ -75,11 +75,25 @@ namespace TEDEditor
                     using (FileStream fs = new FileStream(fi.FullName, FileMode.Open, FileAccess.Read))
                     {
                         EndianBinReader reader = new EndianBinReader(fs);
-                        TED.Read(reader);
+                        Console.WriteLine("Reading file!");
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        ClearCurrentConsoleLine();
+                        if (!TED.Read(reader))
+                        {
+                            Console.WriteLine("Error: File is not supported!");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("GT6TED -file recognized and read!");
+                            Console.SetCursorPosition(0, Console.CursorTop - 1);
+                            ClearCurrentConsoleLine();
+                        }
                     }
 
                     // Editor
                     GUI gui = new GUI(TED.GetHeightsV2());
+                    Console.WriteLine("Editor is being opened...");
                     gui.ShowDialog();
                     if (gui.Result == System.Windows.Forms.DialogResult.OK)
                         TED.SetHeights(gui.Field1);
@@ -106,11 +120,25 @@ namespace TEDEditor
                     using (FileStream fs = new FileStream(fi.FullName, FileMode.Open, FileAccess.Read))
                     {
                         EndianBinReader reader = new EndianBinReader(fs);
-                        TED.Read(reader);
+                        Console.WriteLine("Reading file!");
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        ClearCurrentConsoleLine();
+                        if (!TED.Read(reader))
+                        {
+                            Console.WriteLine("Error: File is not supported!");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("GT6TED -file recognized and read!");
+                            Console.SetCursorPosition(0, Console.CursorTop - 1);
+                            ClearCurrentConsoleLine();
+                        }
                     }
 
                     // Editor
                     GUI gui = new GUI(TED.GetHeightsV2());
+                    Console.WriteLine("Editor is being opened...");
                     gui.ShowDialog();
                     if (gui.Result == System.Windows.Forms.DialogResult.OK)
                         TED.SetHeights(gui.Field1);
@@ -130,6 +158,14 @@ namespace TEDEditor
                 else
                     PrintInfo();
             }
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
         }
 
         static void PrintInfo(bool examples = true)

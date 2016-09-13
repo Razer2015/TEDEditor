@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -74,6 +75,8 @@ namespace TEDEditor
             InitializeComponent();
 
             this.DoubleBuffered = true;
+
+            generateNumericUpDownToolStripMenuItem.Checked = Properties.Settings.Default.numericUpDown;
 
             this.elevation_chart.ChartAreas[0].AxisX.IsStartedFromZero = true;
             //this.elevation_chart.ChartAreas[0].AxisX.Interval = 1;
@@ -166,6 +169,8 @@ namespace TEDEditor
         private void generateNumericUpDownToolStripMenuItem_Click(object sender, EventArgs e)
         {
             generateNumericUpDownToolStripMenuItem.Checked = !generateNumericUpDownToolStripMenuItem.Checked;
+            Properties.Settings.Default.numericUpDown = generateNumericUpDownToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
         }
         #endregion
 
@@ -230,21 +235,26 @@ namespace TEDEditor
             this.elevation_chart.Series[2].Points[entry].YValues[0] = this.mod_heights[entry].Z;
             this.elevation_chart.Series[3].Points[entry].YValues[0] = this.mod_heights[entry].Z;
 
-            // reset all data point attributes
-            foreach (DataPoint point in this.elevation_chart.Series[3].Points)
-            {
-                this.dataPointResetAppearance(point);
-            }
-            foreach (DataPoint point in this.elevation_chart.Series[2].Points)
-            {
-                this.dataPointResetAppearance(point);
-            }
+            this.elevation_chart.Refresh();
+
+            //// reset all data point attributes
+            //foreach (DataPoint point in this.elevation_chart.Series[3].Points)
+            //{
+            //    this.dataPointResetAppearance(point);
+            //}
+            //foreach (DataPoint point in this.elevation_chart.Series[2].Points)
+            //{
+            //    this.dataPointResetAppearance(point);
+            //}
         }
 
         private void fLP_elevation(Vertex[] heights)
         {
             // Clear the control first
             this.fLP_elevations.Controls.Clear();
+
+            if (!generateNumericUpDownToolStripMenuItem.Checked)
+                return;
 
             if (heights.Length > 1000)
             {
@@ -963,7 +973,7 @@ namespace TEDEditor
             if (editor != null && !editor.IsDisposed)
                 editor.Dispose();
 
-            editor = new Editor(listView1, (listView1.SelectedItems.Count > 1) ? 1 : (listView1.SelectedItems.Count == 1) ? 0 : -1);
+            editor = new Editor(listView1.SelectedItems, this.mod_heights, (listView1.SelectedItems.Count > 1) ? 1 : (listView1.SelectedItems.Count == 1) ? 0 : -1);
             if (editor.ShowDialog() == DialogResult.OK)
             {
 #if DEBUG
@@ -1092,16 +1102,7 @@ namespace TEDEditor
                         index++;
                     }
                 }
-
-                // reset all data point attributes
-                foreach (DataPoint point in this.elevation_chart.Series[3].Points)
-                {
-                    this.dataPointResetAppearance(point);
-                }
-                foreach (DataPoint point in this.elevation_chart.Series[2].Points)
-                {
-                    this.dataPointResetAppearance(point);
-                }
+                this.elevation_chart.Refresh();
             }
             else
             {
@@ -1124,7 +1125,10 @@ namespace TEDEditor
         /// <returns>double:height</returns>
         private double GetHeightARCPoint(double sagitta, double radius, double x)
         {
-            return (sagitta + Math.Sqrt((radius * radius) - (x * x) - radius));
+            //return (sagitta + Math.Sqrt((radius * radius) - (x * x) - radius));
+            double step1 = (radius * radius) - (x * x) - radius;
+            double step2 = (step1 < 0) ? Math.Sqrt((step1 < 0) ? step1 * -1 : step1) * -1 : Math.Sqrt((step1 < 0) ? step1 * -1 : step1);
+            return (sagitta + step2);
         }
 
         private double GetRadius(double height, double width)
@@ -1145,6 +1149,14 @@ namespace TEDEditor
             else
             {
                 return (pointA);
+            }
+        }
+
+        private static void CopyItems(ListView source, ListView target)
+        {
+            foreach (ListViewItem item in source.Items)
+            {
+                target.Items.Add((ListViewItem)item.Clone());
             }
         }
     }
